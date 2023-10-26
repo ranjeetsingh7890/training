@@ -1,0 +1,19 @@
+name: Azure Web App Deploy
+
+on:
+  push:
+    branches:
+      -main
+jobs:
+  deploy:
+    runs-on: ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+    - name: AZ Login
+      run: |
+          apt install zip =y
+          az login --service-principal -u 1e90ed82-2422-47d5-a94c-901b6b4f83d5 -p BNr8Q~QfF284YIAEbp41yCTAmmE.tmGnxHr7QbL6 --tenant 77184d99-6065-42b9-9452-8b2b70385193
+          zip app.zip app.py
+          az webapp deploy --resource-group 009_Training --name training-test123 --src-path app.zip
